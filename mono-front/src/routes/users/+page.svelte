@@ -12,7 +12,7 @@
   let filterName = $state("");
   let sortKey = $state("id");
   let currentPage = $state(1);
-  const pageSize = 5;
+  const pageSize = 9;
 
   function executeSearch() {
     filterId = inputId;
