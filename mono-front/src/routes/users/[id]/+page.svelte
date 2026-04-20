@@ -14,13 +14,10 @@
 
   // 新規登録
   async function handleRegister() {
-    console.log("REGISTER CLICKED");
 
     if (!name) return alert("名前を入力してください");
 
     const res = await createUser({ name });
-
-    console.log("REGISTER RESPONSE:", res.status);
 
     if (res.ok) {
       await goto("/users");
@@ -31,47 +28,31 @@
     }
   }
 
-  // 更新
-  async function handleUpdate() {
-    console.log("UPDATE CLICKED");
+ // 更新
+async function handleUpdate() {
 
-    const id = userId();
-    if (!id) return alert("IDがありません");
-
-    const res = await updateUser(id, { name });
-
-    console.log("UPDATE RESPONSE:", res.status);
-
-    if (res.ok) {
-      await goto("/users");
-    } else {
-      const text = await res.text();
-      console.error(text);
-      alert("更新失敗");
-    }
+  try {
+    await updateUser(userId(), { name });
+    await goto("/users");
+  } catch (e) {
+    console.error(e);
+    alert("更新失敗");
   }
+}
+
 
   // 削除
-  async function handleDelete() {
-    if (!confirm("削除しますか？")) return;
+async function handleDelete() {
+  if (!confirm("削除しますか？")) return;
 
-    const id = userId();
-    if (!id) return alert("IDがありません");
-
-    console.log("DELETE CLICKED");
-
-    const res = await deleteUser(id);
-
-    console.log("DELETE RESPONSE:", res.status);
-
-    if (res.ok) {
-      await goto("/users");
-    } else {
-      const text = await res.text();
-      console.error(text);
-      alert("削除失敗");
-    }
+  try {
+    await deleteUser(userId());
+    await goto("/users");
+  } catch (e) {
+    console.error(e);
+    alert("削除失敗");
   }
+}
 </script>
 
 <h1>{isNew ? "ユーザー新規登録" : "ユーザー詳細・編集"}</h1>

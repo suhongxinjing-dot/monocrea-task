@@ -1,4 +1,7 @@
+//フロントのみ使用時
 //const BASE_URL = "http://localhost:3000/users";
+
+//バックエンドとフロント両方使用時
 const BASE_URL = "http://localhost:8080/users";
 
 export interface User {
@@ -10,9 +13,7 @@ export interface CreateUser {
   name: string;
 }
 
-/**
- * 全件取得
- */
+//全件取得
 export async function getUsers(): Promise<User[]> {
   const res = await fetch(BASE_URL);
 
@@ -21,9 +22,7 @@ export async function getUsers(): Promise<User[]> {
   return res.json();
 }
 
-/**
- * 詳細取得
- */
+//詳細取得
 export async function getUser(id: number | string): Promise<User | null> {
   const res = await fetch(`${BASE_URL}/${Number(id)}`);
 
@@ -32,9 +31,7 @@ export async function getUser(id: number | string): Promise<User | null> {
   return res.json();
 }
 
-/**
- * 新規作成
- */
+//新規作成
 export async function createUser(userData: CreateUser): Promise<Response> {
   const res = await fetch(BASE_URL, {
     method: "POST",
@@ -46,13 +43,11 @@ export async function createUser(userData: CreateUser): Promise<Response> {
     throw new Error(await res.text());
   }
 
-  return res;
+    return res;
 }
 
-/**
- * 更新
- */
-export async function updateUser(
+//更新
+export async function updateUser( 
   id: number | string,
   userData: CreateUser
 ): Promise<Response> {
@@ -69,9 +64,7 @@ export async function updateUser(
   return res;
 }
 
-/**
- * 削除
- */
+//削除
 export async function deleteUser(id: number | string): Promise<Response> {
   const res = await fetch(`${BASE_URL}/${Number(id)}`, {
     method: "DELETE"

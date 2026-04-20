@@ -1,10 +1,6 @@
 <script>
-  import { onMount } from "svelte";
-  import { getUsers } from "$lib/api/users";
-
   let { data } = $props();
 
-  // 1. 状態管理
   let users = $state(data.users || []);
   let inputId = $state("");
   let inputName = $state("");
@@ -12,7 +8,7 @@
   let filterName = $state("");
   let sortKey = $state("id");
   let currentPage = $state(1);
-  const pageSize = 9;
+  const pageSize = 8;
 
   function executeSearch() {
     filterId = inputId;
@@ -20,7 +16,6 @@
     currentPage = 1; 
   }
 
-  // 2. フィルタ・ソート（[...users] でコピーを作って破壊的変更を避ける）
   let processedUsers = $derived(
     [...users]
       .filter(u => String(u.id).includes(filterId))
@@ -78,11 +73,11 @@
   <button type="button" disabled={currentPage >= totalPages} onclick={() => currentPage++}>次へ</button>
 </div>
 
+
 <style>
   .controls { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
   .search-group, .sort-group { display: flex; gap: 10px; }
   table { width: 100%; border-collapse: collapse; }
   th, td { border: 1px solid #ddd; padding: 12px; }
-  button.active { background: #007bff; color: white; border: none; }
   .btn-new { display: inline-block; padding: 8px; background: #28a745; color: white; text-decoration: none; border-radius: 4px; width: fit-content; }
 </style>
