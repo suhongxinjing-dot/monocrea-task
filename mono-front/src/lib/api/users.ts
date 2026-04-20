@@ -1,8 +1,8 @@
 //フロントのみ使用時
-//const BASE_URL = "http://localhost:3000/users";
+const BASE_URL = "http://localhost:3000/users";
 
 //バックエンドとフロント両方使用時
-const BASE_URL = "http://localhost:8080/users";
+//const BASE_URL = "http://localhost:8080/users";
 
 export interface User {
   id: number;
